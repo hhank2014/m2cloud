@@ -1,8 +1,21 @@
 version: '3.9'
+
 services:
-  lnmp:
-    image: hhank/m2:lnp
+  magento2:
+    image: hhank/m2:latest
+    container_name: magento2-web
+    volumes:
+      - type: volume
+        source: magento-data
+        target: /app
     ports:
      - "80:80"
-    volumes:
-      - ./www:/usr/share/nginx/html
+     - "443:443"
+
+volumes:
+  magento-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/m2cloud/www
