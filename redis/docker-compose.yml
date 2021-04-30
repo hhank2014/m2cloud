@@ -1,0 +1,9 @@
+version: '3'
+services:
+  redis:
+    image: redis:6
+    container_name: m2-redis
+    volumes:
+      - ./redis.conf:/etc/redis.conf
+    ports:
+      - 6379:6379

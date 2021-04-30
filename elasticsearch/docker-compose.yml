@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  elasticsearch:
+    image: elasticsearch:7.12.1
+    container_name: m2-elastic
+    restart: always 
+    environment:
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - /data/es-data/data:/var/lib/elasticsearch
+      - /data/es-data/logs:/var/log/elasticsearch
+      - ./elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml

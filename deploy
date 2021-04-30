@@ -3,9 +3,8 @@
 . ./config-example.conf
 
 function mysql(){
-
-	if [ ! -d $MYSQLDATA ];then
-		mkdir $MYSQLDATA
+	if [ ! -d $MYSQL_DATA ];then
+		mkdir $MYSQL_DATA
 	fi
 
 	MYSQLDIR=$ROOTDIR/mysql
@@ -14,8 +13,9 @@ function mysql(){
 	if [ -f $DOCKERCOMPOSEFILE ];then
 		rm -f $DOCKERCOMPOSEFILE
 		cp $ROOTDIR/template/mysql.yml $DOCKERCOMPOSEFILE
+	else
+		cp $ROOTDIR/template/mysql.yml $DOCKERCOMPOSEFILE
 	fi
-
 	sed -i "s/MYSQLDATABASE/$MYSQLDATABASE/g" $DOCKERCOMPOSEFILE
 	sed -i "s/MYSQLUSER/$MYSQLUSER/g" $DOCKERCOMPOSEFILE
 	sed -i "s/MYSQLPASSWORD/$MYSQLPASSWORD/g" $DOCKERCOMPOSEFILE
@@ -29,10 +29,8 @@ function mysql(){
 		sed -i "s/MYSQLCONTAINERNAME/$MYSQLCONTAINERNAME/g" $DOCKERCOMPOSEFILE
 
 	fi
-
 	cd $MYSQLDIR
 	docker-compose up -d
-
 }
 
 function del_mysql(){
@@ -41,8 +39,8 @@ function del_mysql(){
 }
 
 function magento2(){
-	if [ ! -d $WWWDATA ];then
-	        mkdir $WWWDATA
+	if [ ! -d $WWW_DATA ];then
+	        mkdir $WWW_DATA
 	fi
 
 	MAGENTO2DIR=$ROOTDIR/magento2
@@ -51,30 +49,104 @@ function magento2(){
 	if [ -f $DOCKERCOMPOSEFILE ];then
 		rm -f $DOCKERCOMPOSEFILE
 		cp $ROOTDIR/template/magento2.yml $DOCKERCOMPOSEFILE
+	else
+		cp $ROOTDIR/template/magento2.yml $DOCKERCOMPOSEFILE
 	fi
-
 	sed -i "s/MAGENTO2IMAGES/$MAGENTO2IMAGES/g" $DOCKERCOMPOSEFILE
 	sed -i "s/MagentoContainerName/$MagentoContainerName/g" $DOCKERCOMPOSEFILE
 	sed -i "s/WWWDATA/$WWWDATA/g" $DOCKERCOMPOSEFILE
 
 	cd $MAGENTO2DIR
 	docker-compose up -d
-
 }
 function del_magento2(){
 	cd $ROOTDIR/magento2
 	docker-compose down
 }
 
+function redis(){
+	REDISDIR=$ROOTDIR/redis
+	DOCKERCOMPOSEFILE=$REDISDIR/docker-compose.yml
+
+        if [ -f $DOCKERCOMPOSEFILE ];then
+                rm -f $DOCKERCOMPOSEFILE
+                cp $ROOTDIR/template/redis.yml $DOCKERCOMPOSEFILE
+	else
+		cp $ROOTDIR/template/redis.yml $DOCKERCOMPOSEFILE
+        fi
+        sed -i "s/REDISIMAGES/$REDISIMAGES/g" $DOCKERCOMPOSEFILE
+        sed -i "s/REDISContainerName/$REDISContainerName/g" $DOCKERCOMPOSEFILE
+
+	cd $REDISDIR
+	docker-compose up -d
+}
+
+function del_redis(){
+	cd $ROOTDIR/redis
+	docker-compose down
+}
+
+function elasticsearch(){
+	if [ ! -d $Elastic_DATA_DIR ];then
+	        mkdir $Elastic_DATA_DIR/{data,logs}
+	fi
+
+	ELASTICDIR=$ROOTDIR/elasticsearch
+	DOCKERCOMPOSEFILE=$ELASTICDIR/docker-compose.yml
+
+        if [ -f $DOCKERCOMPOSEFILE ];then
+                rm -f $DOCKERCOMPOSEFILE
+                cp $ROOTDIR/template/elasticsearch.yml $DOCKERCOMPOSEFILE
+	else
+		cp $ROOTDIR/template/elasticsearch.yml $DOCKERCOMPOSEFILE
+        fi
+
+        sed -i "s/ElasticImages/$ElasticImages/g" $DOCKERCOMPOSEFILE
+        sed -i "s/ElasticDATADIR/$ElasticDATADIR/g" $DOCKERCOMPOSEFILE
+        sed -i "s/ElasticContainerName/$ElasticContainerName/g" $DOCKERCOMPOSEFILE
+
+	cd $ELASTICDIR
+	docker-compose up -d
+}
+
+function del_elasticsearch(){
+	cd $ROOTDIR/elasticsearch
+	docker-compose down
+}
+
+function ls(){
+	docker ps
+}
+
+function restart(){
+	for i in `docker ps | awk '{if (NR>2) {print $1}}'`;do
+		docker restart $i
+	done
+}
+
 case $1 in
+	"ls")
+	ls
+	;;
+	"restart")
+	restart
+	;;
 	"mysql")
 	mysql
 	;;
 	"magento2")
 	magento2
 	;;
+	"redis")
+	redis
+	;;
+	"elasticsearch")
+	elasticsearch
+	;;
 	"all")
 	mysql
+	redis
+	elasticsearch
 	magento2
 	;;
 	"del_mysql")
@@ -83,9 +155,17 @@ case $1 in
 	"del_magento2")
 	del_magento2
 	;;
+	"del_redis")
+	del_redis
+	;;
+	"del_elasticsearch")
+	del_elasticsearch
+	;;
 	"del_all")
-	del_mysql
 	del_magento2
+	del_redis
+	del_elasticsearch
+	del_mysql
 	;;
 	*)
 	;;
