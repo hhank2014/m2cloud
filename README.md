@@ -5,6 +5,7 @@
 环境:
 
 操作系统: CentOS 7
+
 nginx: 1.20.0
 PHP:   7.4.16
 MySQL: 5.7.34
