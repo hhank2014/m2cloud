@@ -16,7 +16,7 @@ MySQL: 5.7.34
 
 自定义参数配置：
 
-config-example.conf
+所需参数变量在这里修改 config-example.conf
 
 安装
 
