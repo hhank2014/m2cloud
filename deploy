@@ -1,0 +1,92 @@
+#!/bin/bash
+
+. ./config-example.conf
+
+function mysql(){
+
+	if [ ! -d $MYSQLDATA ];then
+		mkdir $MYSQLDATA
+	fi
+
+	MYSQLDIR=$ROOTDIR/mysql
+	DOCKERCOMPOSEFILE=$MYSQLDIR/docker-compose.yml
+
+	if [ -f $DOCKERCOMPOSEFILE ];then
+		rm -f $DOCKERCOMPOSEFILE
+		cp $ROOTDIR/template/mysql.yml $DOCKERCOMPOSEFILE
+	fi
+
+	sed -i "s/MYSQLDATABASE/$MYSQLDATABASE/g" $DOCKERCOMPOSEFILE
+	sed -i "s/MYSQLUSER/$MYSQLUSER/g" $DOCKERCOMPOSEFILE
+	sed -i "s/MYSQLPASSWORD/$MYSQLPASSWORD/g" $DOCKERCOMPOSEFILE
+	sed -i "s/MYSQLROOTPASSWORD/$MYSQLROOTPASSWORD/g" $DOCKERCOMPOSEFILE
+	sed -i "s/MYSQLDATADIR/$MYSQLDATADIR/g" $DOCKERCOMPOSEFILE
+
+	if test -z $MYSQLCONTAINERNAME;then
+		MYSQLCONTAINERNAME="mysql_server"
+		sed -i "s/MYSQLCONTAINERNAME/$MYSQLCONTAINERNAME/g" $DOCKERCOMPOSEFILE
+	else
+		sed -i "s/MYSQLCONTAINERNAME/$MYSQLCONTAINERNAME/g" $DOCKERCOMPOSEFILE
+
+	fi
+
+	cd $MYSQLDIR
+	docker-compose up -d
+
+}
+
+function del_mysql(){
+	cd $ROOTDIR/mysql
+	docker-compose down
+}
+
+function magento2(){
+	if [ ! -d $WWWDATA ];then
+	        mkdir $WWWDATA
+	fi
+
+	MAGENTO2DIR=$ROOTDIR/magento2
+	DOCKERCOMPOSEFILE=$MAGENTO2DIR/docker-compose.yml
+
+	if [ -f $DOCKERCOMPOSEFILE ];then
+		rm -f $DOCKERCOMPOSEFILE
+		cp $ROOTDIR/template/magento2.yml $DOCKERCOMPOSEFILE
+	fi
+
+	sed -i "s/MAGENTO2IMAGES/$MAGENTO2IMAGES/g" $DOCKERCOMPOSEFILE
+	sed -i "s/MagentoContainerName/$MagentoContainerName/g" $DOCKERCOMPOSEFILE
+	sed -i "s/WWWDATA/$WWWDATA/g" $DOCKERCOMPOSEFILE
+
+	cd $MAGENTO2DIR
+	docker-compose up -d
+
+}
+function del_magento2(){
+	cd $ROOTDIR/magento2
+	docker-compose down
+}
+
+case $1 in
+	"mysql")
+	mysql
+	;;
+	"magento2")
+	magento2
+	;;
+	"all")
+	mysql
+	magento2
+	;;
+	"del_mysql")
+	del_mysql
+	;;
+	"del_magento2")
+	del_magento2
+	;;
+	"del_all")
+	del_mysql
+	del_magento2
+	;;
+	*)
+	;;
+esac

@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  magento2:
+    image: MAGENTO2IMAGES
+    container_name: MagentoContainerName
+    volumes:
+      - WWWDATA:/app
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./php/php.ini:/etc/php.ini
+      - ./php/php-fpm.conf:/etc/php-fpm.conf
+      - ./php/www.conf:/etc/php-fpm.d/www.conf
+
+    ports:
+     - "80:80"
+     - "443:443"
