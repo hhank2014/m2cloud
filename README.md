@@ -1,11 +1,11 @@
 Installation Guide:
 
-ENV
-
         OS: CentOS 7
         nginx: 1.20.0
         PHP: 7.4.16
         MySQL: 5.7.34
+        Redis: 6.x
+        ElasticSearch: 7.12
 
 Custom parameter configuration:
 
@@ -14,6 +14,7 @@ Custom parameter configuration:
         key1=value1
         ...........
         keyn=valuen
+        
 pre-install:
 
         sh deploy prenv  (install docker and docker-compose)
