@@ -2,6 +2,72 @@
 
 . ./config-example.conf
 
+function help(){
+
+    cat <<- EOF
+		Installation Guide:
+
+		ENV
+
+		OS: CentOS 7
+		nginx: 1.20.0
+		PHP: 7.4.16
+		MySQL: 5.7.34
+
+
+		Custom parameter configuration:
+
+			config-example.conf
+
+			key1=value1
+			...........
+			keyn=valuen
+
+		pre-install:
+
+		sh deploy prenv  (install docker and docker-compose)
+
+		install:
+
+		sh deplopy [mysql|magento2|all]
+
+		uninstall:
+
+		sh deploy [del_mysql|del_magento2|del_all]
+
+		set Permission:
+
+
+	EOF
+    exit 0
+
+}
+
+function prenv(){
+
+
+        sudo yum install -y yum-utils
+        sudo yum-config-manager \
+           --add-repo \
+           https://download.docker.com/linux/centos/docker-ce.repo
+
+        sudo yum -y install docker-ce docker-ce-cli containerd.io 
+
+        systemctl start docker
+        systemctl enable docker
+
+
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+}
+
+function uninstall(){
+	yum -y remove docker-ce docker-ce-cli containerd.io
+	rm -f /etc/yum.repos.d/docker-ce.repo
+	rm -f /usr/local/bin/docker-compose
+}
+
 function mysql(){
 	if [ ! -d $MYSQL_DATA ];then
 		mkdir $MYSQL_DATA
@@ -124,9 +190,42 @@ function restart(){
 	done
 }
 
+function setPermission(){
+	
+	# $1 = container_name
+	# path="/usr/share/nginx/html"
+	
+	container_name=$MagentoContainerName
+	
+	path=$M2PATH
+
+	dir="var generated vendor pub/static pub/media app/etc"
+	
+	docker_cmd="docker exec -it $container_name"
+
+	$docker_cmd chown -R nginx.nginx $path
+	
+	for i in $dir
+	do
+	        $docker_cmd find $path/$i -type f -exec chmod u+w {} +
+	        $docker_cmd find $path/$i -type d -exec chmod u+w {} +
+	        $docker_cmd find $path/$i -type f -exec chmod g+w {} +
+	        $docker_cmd find $path/$i -type d -exec chmod g+ws {} +
+	done
+}
+
 case $1 in
+	"help")
+	help	
+	;;
+	"prenv")
+	prenv
+	;;
 	"ls")
 	ls
+	;;
+	"setPermission")
+	setPermission
 	;;
 	"restart")
 	restart
@@ -166,6 +265,9 @@ case $1 in
 	del_redis
 	del_elasticsearch
 	del_mysql
+	;;
+	"uninstall")
+	uninstall
 	;;
 	*)
 	;;
