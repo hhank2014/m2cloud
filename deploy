@@ -61,7 +61,7 @@ function uninstall(){
 
 function mysql(){
 	if [ ! -d $MYSQL_DATA ];then
-		mkdir $MYSQL_DATA
+		mkdir $MYSQL_DATA -p
 	fi
 
 	MYSQLDIR=$ROOTDIR/mysql
@@ -97,7 +97,7 @@ function del_mysql(){
 
 function magento2(){
 	if [ ! -d $WWW_DATA ];then
-	        mkdir $WWW_DATA
+	        mkdir $WWW_DATA -p
 	fi
 
 	MAGENTO2DIR=$ROOTDIR/magento2
@@ -145,7 +145,7 @@ function del_redis(){
 
 function elasticsearch(){
 	if [ ! -d $Elastic_DATA_DIR ];then
-	        mkdir $Elastic_DATA_DIR/{data,logs}
+	        mkdir $Elastic_DATA_DIR/{data,logs} -p
 	fi
 
 	ELASTICDIR=$ROOTDIR/elasticsearch
