@@ -2,7 +2,7 @@ version: '3.9'
 services:
   mysql-server:
     image: mysql:5.7.34
-    container_name: mysql_server
+    container_name: m2_mysql
     command: --character-set-server=utf8  --collation-server=utf8_bin
     restart: always 
     environment:

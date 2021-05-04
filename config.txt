@@ -4,8 +4,8 @@ MYSQLUSER="m2user"
 MYSQLPASSWORD="m2User123a@"
 MYSQLROOTPASSWORD="m2User123a@"
 
-#MYSQLCONTAINERNAME="m2_mysql_server"
-MYSQLCONTAINERNAME=""
+MYSQLCONTAINERNAME="m2_mysql"
+#MYSQLCONTAINERNAME=""
 
 #MySQL data 
 MYSQLDATADIR="\/data\/mysql_data"
@@ -24,13 +24,13 @@ MagentoContainerName="m2_web"
 
 
 REDISIMAGES="redis:6"
-REDISContainerName="m2-redis"
+REDISContainerName="m2_redis"
 
 
 ElasticImages="elasticsearch:7.12.1"
-ElasticContainerName="m2-elastic"
-ElasticDATADIR="\/data\/es-data"
-Elastic_DATA_DIR="/data/es-data"
+ElasticContainerName="m2_elastic"
+ElasticDATADIR="\/data\/es_data"
+Elastic_DATA_DIR="/data/es_data"
 
 
 M2PATH=/usr/share/nginx/html
