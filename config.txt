@@ -13,7 +13,7 @@ MYSQL_DATA_DIR="/data/mysql_data"
 
 
 #Project DIR
-ROOTDIR="/data/project/m2cloud"
+ROOTDIR=`pwd`
 
 
 #Magento2 web 
