@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./config-example.conf
+. ./config.txt
 
 function help(){
 
