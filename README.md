@@ -1,10 +1,11 @@
 Installation Guide:
 
 ENV
-OS: CentOS 7
-nginx: 1.20.0
-PHP: 7.4.16
-MySQL: 5.7.34
+
+        OS: CentOS 7
+        nginx: 1.20.0
+        PHP: 7.4.16
+        MySQL: 5.7.34
 
 Custom parameter configuration:
 
