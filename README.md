@@ -14,10 +14,17 @@ Custom parameter configuration:
         ...........
         keyn=valuen
 pre-install:
+
         sh deploy prenv  (install docker and docker-compose)
+        
 install:
+
         sh deplopy [mysql|magento2|all]
+        
 uninstall:
+
         sh deploy [del_mysql|del_magento2|del_all]
+        
 set Permission:
+
         sh deploy permission
