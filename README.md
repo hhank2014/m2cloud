@@ -1,27 +1,23 @@
-# m2cloud
+Installation Guide:
 
-安装配置文档
-
-环境:
-
-操作系统: CentOS 7
-
+ENV
+OS: CentOS 7
 nginx: 1.20.0
-
-PHP:   7.4.16
-
+PHP: 7.4.16
 MySQL: 5.7.34
 
-安装部署
+Custom parameter configuration:
 
-自定义参数配置：
+        config-example.conf
 
-所需参数变量在这里修改 config-example.conf
-
-安装
-
-sh deplopy [mysql|magento2|all] 
-
-删除
-
+        key1=value1
+        ...........
+        keyn=valuen
+pre-install:
+sh deploy prenv  (install docker and docker-compose)
+install:
+sh deplopy [mysql|magento2|all]
+uninstall:
 sh deploy [del_mysql|del_magento2|del_all]
+set Permission:
+sh deploy permission

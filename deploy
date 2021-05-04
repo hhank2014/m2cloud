@@ -27,6 +27,7 @@ function help(){
 		uninstall:
 		sh deploy [del_mysql|del_magento2|del_all]
 		set Permission:
+		sh deploy permission
 
 	EOF
     exit 0
