@@ -4,6 +4,8 @@ services:
     image: elasticsearch:7.12.1
     container_name: m2_elastic
     restart: always 
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1

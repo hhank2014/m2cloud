@@ -17,6 +17,9 @@ ROOTDIR=`pwd`
 #Magento2 web 
 WWWDATA="\/data\/www_data"
 WWW_DATA="/data/www_data"
+WWWLOGS="\/data\/www_logs"
+WWW_LOGS="/data/www_logs"
+
 MAGENTO2IMAGES="hhank\/m2:latest"
 MagentoContainerName="m2_web"
 

@@ -100,6 +100,11 @@ function magento2(){
 	        mkdir $WWW_DATA -p
 	fi
 
+	if [ ! -d $WWW_LOGS ];then
+	        mkdir $WWW_LOGS -p
+	fi
+
+
 	MAGENTO2DIR=$ROOTDIR/magento2
 	DOCKERCOMPOSEFILE=$MAGENTO2DIR/docker-compose.yml
 
@@ -112,6 +117,7 @@ function magento2(){
 	sed -i "s/MAGENTO2IMAGES/$MAGENTO2IMAGES/g" $DOCKERCOMPOSEFILE
 	sed -i "s/MagentoContainerName/$MagentoContainerName/g" $DOCKERCOMPOSEFILE
 	sed -i "s/WWWDATA/$WWWDATA/g" $DOCKERCOMPOSEFILE
+	sed -i "s/WWWLOGS/$WWWLOGS/g" $DOCKERCOMPOSEFILE
 
 	cd $MAGENTO2DIR
 	docker-compose up -d

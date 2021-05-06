@@ -9,7 +9,7 @@ RUN yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
     yum update -y
 
 RUN yum -y install nginx && \
-    yum -y install zlib-devel pcre-devel libjpeg-turbo-devel libpng-devel freetype-devel libxml2-devel glibc-devel glib2-devel bzip2-devel ncurses-devel libcurl-devel e2fsprogs-devel krb5-devel openssl-devel  libzip-devel  libxslt-devel && \
+    yum -y install vim zlib-devel pcre-devel libjpeg-turbo-devel libpng-devel freetype-devel libxml2-devel glibc-devel glib2-devel bzip2-devel ncurses-devel libcurl-devel e2fsprogs-devel krb5-devel openssl-devel  libzip-devel  libxslt-devel && \
     yum -y install php php-fpm php-devel php-common php-embedded php-opcache php-cli php-gd php-gmp php-mbstring php-mysqlnd php-pecl-mcrypt php-pecl-redis5 php-soap php-json php-bcmath php-intl php-xml php-pdo php-pecl-zip
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \

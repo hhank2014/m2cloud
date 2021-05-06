@@ -6,6 +6,7 @@ services:
     container_name: MagentoContainerName
     volumes:
       - WWWDATA:/app
+      - WWWLOGS:/var/log/nginx
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./php/php.ini:/etc/php.ini
