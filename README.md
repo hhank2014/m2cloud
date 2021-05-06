@@ -9,7 +9,7 @@ Installation Guide:
 
 Custom parameter configuration:
 
-        config-example.conf
+        config.txt
 
         key1=value1
         ...........
