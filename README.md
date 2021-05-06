@@ -29,4 +29,4 @@ uninstall:
         
 set Permission:
 
-        sh deploy permission
+        sh deploy setPermission
