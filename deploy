@@ -27,7 +27,7 @@ function help(){
 		uninstall:
 		sh deploy [del_mysql|del_magento2|del_all]
 		set Permission:
-		sh deploy permission
+		sh deploy setPermission
 
 	EOF
     exit 0
@@ -238,6 +238,7 @@ case $1 in
 	redis
 	elasticsearch
 	magento2
+        setPermission
 	;;
 	"del_mysql")
 	del_mysql

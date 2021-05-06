@@ -2,8 +2,9 @@ version: '3'
 services:
   redis:
     image: redis:6
-    container_name: m2-redis
+    container_name: m2_redis
     volumes:
       - ./redis.conf:/etc/redis.conf
     ports:
       - 6379:6379
+    network_mode: bridge

@@ -4,8 +4,6 @@ services:
     image: ElasticImages
     container_name: ElasticContainerName
     restart: always 
-    environment:
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
     ulimits:
       memlock:
         soft: -1
@@ -17,6 +15,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - ElasticDATADIR/data:/var/lib/elasticsearch
-      - ElasticDATADIR/logs:/var/log/elasticsearch
-      - ./elasticsearch.yml:/etc/elasticsearch/elasticsearch.yml
+      - ElasticDATADIR/data:/usr/share/elasticsearch/data
+      - ElasticDATADIR/logs:/usr/share/elasticsearch/logs
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    network_mode: bridge

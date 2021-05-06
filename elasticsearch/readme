@@ -1,0 +1,2 @@
+chown elasticsearch.root <local/es_data> -R
+chmod 755 <local/es_data> -R 
