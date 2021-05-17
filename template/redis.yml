@@ -4,7 +4,16 @@ services:
     image: REDISIMAGES
     container_name: REDISContainerName
     volumes:
+      - data:/data
       - ./redis.conf:/etc/redis.conf
     ports:
       - 6379:6379
     network_mode: bridge
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: REDISDATA

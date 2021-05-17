@@ -13,6 +13,14 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - /data/mysql_data:/var/lib/mysql
+      - data:/var/lib/mysql
       - ./mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
     network_mode: bridge
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/mysql_data

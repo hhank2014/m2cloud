@@ -4,7 +4,16 @@ services:
     image: redis:6
     container_name: m2_redis
     volumes:
+      - data:/data
       - ./redis.conf:/etc/redis.conf
     ports:
       - 6379:6379
     network_mode: bridge
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/redis_data

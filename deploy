@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. `pwd`/config.txt
+. `pwd`/env
 
 function help(){
 
@@ -64,7 +64,7 @@ function mysql(){
 		mkdir $MYSQL_DATA -p
 	fi
 
-	MYSQLDIR=$ROOTDIR/mysql
+	MYSQLDIR=$ROOTDIR/apps/mysql
 	DOCKERCOMPOSEFILE=$MYSQLDIR/docker-compose.yml
 
 	if [ -f $DOCKERCOMPOSEFILE ];then
@@ -91,7 +91,7 @@ function mysql(){
 }
 
 function del_mysql(){
-	cd $ROOTDIR/mysql
+	cd $ROOTDIR/apps/mysql
 	docker-compose down
 }
 
@@ -105,7 +105,7 @@ function magento2(){
 	fi
 
 
-	MAGENTO2DIR=$ROOTDIR/magento2
+	MAGENTO2DIR=$ROOTDIR/apps/magento2
 	DOCKERCOMPOSEFILE=$MAGENTO2DIR/docker-compose.yml
 
 	if [ -f $DOCKERCOMPOSEFILE ];then
@@ -123,12 +123,20 @@ function magento2(){
 	docker-compose up -d
 }
 function del_magento2(){
-	cd $ROOTDIR/magento2
+	cd $ROOTDIR/apps/magento2
 	docker-compose down
 }
 
 function redis(){
-	REDISDIR=$ROOTDIR/redis
+
+
+
+        if [ ! -d $REDIS_DATA ];then
+                mkdir $REDIS_DATA -p
+        fi
+
+
+	REDISDIR=$ROOTDIR/apps/redis
 	DOCKERCOMPOSEFILE=$REDISDIR/docker-compose.yml
 
         if [ -f $DOCKERCOMPOSEFILE ];then
@@ -137,6 +145,8 @@ function redis(){
 	else
 		cp $ROOTDIR/template/redis.yml $DOCKERCOMPOSEFILE
         fi
+
+	sed -i "s/REDISDATA/$REDISDATA/g" $DOCKERCOMPOSEFILE
         sed -i "s/REDISIMAGES/$REDISIMAGES/g" $DOCKERCOMPOSEFILE
         sed -i "s/REDISContainerName/$REDISContainerName/g" $DOCKERCOMPOSEFILE
 
@@ -145,7 +155,7 @@ function redis(){
 }
 
 function del_redis(){
-	cd $ROOTDIR/redis
+	cd $ROOTDIR/apps/redis
 	docker-compose down
 }
 
@@ -154,7 +164,7 @@ function elasticsearch(){
 	        mkdir $Elastic_DATA_DIR/{data,logs} -p
 	fi
 
-	ELASTICDIR=$ROOTDIR/elasticsearch
+	ELASTICDIR=$ROOTDIR/apps/elasticsearch
 	DOCKERCOMPOSEFILE=$ELASTICDIR/docker-compose.yml
 
         if [ -f $DOCKERCOMPOSEFILE ];then
@@ -173,18 +183,8 @@ function elasticsearch(){
 }
 
 function del_elasticsearch(){
-	cd $ROOTDIR/elasticsearch
+	cd $ROOTDIR/apps/elasticsearch
 	docker-compose down
-}
-
-function ls(){
-	docker ps
-}
-
-function restart(){
-	for i in `docker ps | awk '{if (NR>2) {print $1}}'`;do
-		docker restart $i
-	done
 }
 
 function setPermission(){
@@ -218,14 +218,8 @@ case $1 in
 	"prenv")
 	prenv
 	;;
-	"ls")
-	ls
-	;;
 	"setPermission")
 	setPermission
-	;;
-	"restart")
-	restart
 	;;
 	"mysql")
 	mysql

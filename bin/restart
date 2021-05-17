@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+pwd="/data/project/m2cloud/apps"
+
+if [ "$1" == "all" ];then
+	for i in `docker ps | awk '{if (NR>1) {print $NF}}'`;do
+		echo "Restarting $i"
+	        docker restart $i
+	done
+	docker ps
+else
+	docker-compose -f $pwd/$1/docker-compose.yml restart
+	docker-compose -f $pwd/$1/docker-compose.yml ps
+fi

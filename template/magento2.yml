@@ -5,8 +5,8 @@ services:
     image: MAGENTO2IMAGES
     container_name: MagentoContainerName
     volumes:
-      - WWWDATA:/app
-      - WWWLOGS:/var/log/nginx
+      - www:/app
+      - logs:/var/log/nginx
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./php/php.ini:/etc/php.ini
@@ -17,3 +17,18 @@ services:
      - "80:80"
      - "443:443"
     network_mode: bridge
+
+
+volumes:
+  www:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: WWWDATA
+  logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: WWWLOGS

@@ -17,7 +17,14 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - ElasticDATADIR/data:/usr/share/elasticsearch/data
-      - ElasticDATADIR/logs:/usr/share/elasticsearch/logs
+      - data:/usr/share/elasticsearch/data
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     network_mode: bridge
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ElasticDATADIR
