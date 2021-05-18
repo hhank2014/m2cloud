@@ -7,32 +7,23 @@ MYSQLROOTPASSWORD="m2User123a@"
 MYSQLCONTAINERNAME="m2_mysql"
 
 #MySQL data 
-MYSQLDATADIR="\/data\/mysql_data"
-MYSQL_DATA_DIR="/data/mysql_data"
+MYSQLDATADIR="/data/mysql_data"
 
 #Project DIR
 ROOTDIR=`pwd`
 
 #Magento2 web 
-WWWDATA="\/data\/www_data"
-WWW_DATA="/data/www_data"
-WWWLOGS="\/data\/www_logs"
-WWW_LOGS="/data/www_logs"
-
-MAGENTO2IMAGES="hhank\/m2:latest"
+WWWDATA="/data/www_data"
+WWWLOGS="/data/www_logs"
+MAGENTO2IMAGES="hhank/m2:latest"
 MagentoContainerName="m2_web"
-
 
 REDISIMAGES="redis:6"
 REDISContainerName="m2_redis"
-REDISDATA="\/data\/redis_data"
-REDIS_DATA="/data/redis_data"
+REDISDATA="/data/redis_data"
 
 ElasticImages="elasticsearch:7.12.1"
 ElasticContainerName="m2_elastic"
-ElasticDATADIR="\/data\/es_data\/data"
-Elastic_DATA_DIR="/data/es_data/data"
-
+ElasticDATADIR="/data/es_data/data"
 
 M2PATH="/app"
-
