@@ -2,6 +2,8 @@
 
 . `pwd`/env
 
+ROOTDIR=`pwd`
+
 function help(){
 
     cat <<- EOF
@@ -141,6 +143,9 @@ function redis(){
         if [ ! -d $REDISDATA ];then
                 mkdir $REDISDATA -p
         fi
+        if [ ! -d $REDISLOGS ];then
+                mkdir $REDISLOGS -p
+        fi
 
         if [ -f $DOCKERCOMPOSEFILE ];then
                 rm -f $DOCKERCOMPOSEFILE
@@ -159,6 +164,7 @@ function redis(){
 
         sed -i "s/REDISIMAGES/$REDISIMAGES/g" $DOCKERCOMPOSEFILE
 	sed -i "s~REDISDATA~$REDISDATA~" $DOCKERCOMPOSEFILE
+	sed -i "s~REDISLOGS~$REDISLOGS~" $DOCKERCOMPOSEFILE
 
 	docker-compose -f $DOCKERCOMPOSEFILE up -d
 }
@@ -193,7 +199,10 @@ function elasticsearch(){
         fi
 
         sed -i "s/ElasticImages/$ElasticImages/g" $DOCKERCOMPOSEFILE
-        sed -i "s~ElasticDATADIR~$ElasticDATADIR~" $DOCKERCOMPOSEFILE
+        sed -i "s/ES_JAVA_OPTS_Xmx/$ES_JAVA_OPTS_Xmx/g" $DOCKERCOMPOSEFILE
+        sed -i "s/ES_JAVA_OPTS_Xms/$ES_JAVA_OPTS_Xms/g" $DOCKERCOMPOSEFILE
+        sed -i "s~ElasticDATA~$ElasticDATA~" $DOCKERCOMPOSEFILE
+        sed -i "s~ElasticLOGS~$ElasticLOGS~" $DOCKERCOMPOSEFILE
 
 	docker-compose -f $DOCKERCOMPOSEFILE up -d
 }

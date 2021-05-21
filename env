@@ -10,7 +10,6 @@ MYSQLCONTAINERNAME="m2_mysql"
 MYSQLDATADIR="/data/mysql_data"
 
 #Project DIR
-ROOTDIR=`pwd`
 
 #Magento2 web 
 WWWDATA="/data/www_data"
@@ -20,10 +19,14 @@ MagentoContainerName="m2_web"
 
 REDISIMAGES="redis:6"
 REDISContainerName="m2_redis"
-REDISDATA="/data/redis_data"
+REDISDATA="/data/redis/data"
+REDISLOGS="/data/redis/logs"
 
 ElasticImages="elasticsearch:7.12.1"
 ElasticContainerName="m2_elastic"
-ElasticDATADIR="/data/es_data/data"
+ElasticDATA="/data/es_data/data"
+ElasticLOGS="/data/es_data/logs"
+ES_JAVA_OPTS_Xms=512M
+ES_JAVA_OPTS_Xmx=512M
 
 M2PATH="/app"

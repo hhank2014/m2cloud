@@ -5,9 +5,13 @@ services:
     container_name: m2_redis
     volumes:
       - data:/data
+      - logs:/logs
       - ./redis.conf:/etc/redis.conf
     ports:
       - 6379:6379
+    sysctls:
+      - net.core.somaxconn=65535 
+    command: redis-server /etc/redis.conf
     network_mode: bridge
 
 volumes:
@@ -16,4 +20,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /data/redis_data
+      device: /data/redis/data
+  logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/redis/logs
