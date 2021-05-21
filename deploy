@@ -4,7 +4,7 @@
 
 ROOTDIR=`pwd`
 
-function help(){
+help(){
 
     cat <<- EOF
 		Installation Guide:
@@ -36,7 +36,7 @@ function help(){
 
 }
 
-function prenv(){
+prenv(){
 
 
         sudo yum install -y yum-utils
@@ -55,13 +55,13 @@ function prenv(){
 	docker-compose --version
 }
 
-function uninstall(){
+uninstall(){
 	yum -y remove docker-ce docker-ce-cli containerd.io
 	rm -f /etc/yum.repos.d/docker-ce.repo
 	rm -f /usr/local/bin/docker-compose
 }
 
-function mysql(){
+mysql(){
 
 	DOCKERCOMPOSEFILE="$ROOTDIR/apps/mysql/docker-compose.yml"
 
@@ -93,12 +93,12 @@ function mysql(){
 	docker-compose -f $DOCKERCOMPOSEFILE up -d
 }
 
-function del_mysql(){
+del_mysql(){
 	DOCKERCOMPOSEFILE="$ROOTDIR/apps/mysql/docker-compose.yml"
 	docker-compose -f $DOCKERCOMPOSEFILE down
 }
 
-function magento2(){
+magento2(){
 
 	DOCKERCOMPOSEFILE="$ROOTDIR/apps/magento2/docker-compose.yml"
 
@@ -131,12 +131,12 @@ function magento2(){
 	docker-compose -f $DOCKERCOMPOSEFILE up -d
 }
 
-function del_magento2(){
+del_magento2(){
 	DOCKERCOMPOSEFILE="$ROOTDIR/apps/magento2/docker-compose.yml"
 	docker-compose -f $DOCKERCOMPOSEFILE down
 }
 
-function redis(){
+redis(){
 
 	DOCKERCOMPOSEFILE="$ROOTDIR/apps/redis/docker-compose.yml"
 
@@ -169,12 +169,12 @@ function redis(){
 	docker-compose -f $DOCKERCOMPOSEFILE up -d
 }
 
-function del_redis(){
+del_redis(){
 	DOCKERCOMPOSEFILE="$ROOTDIR/apps/redis/docker-compose.yml"
 	docker-compose -f $DOCKERCOMPOSEFILE down
 }
 
-function elasticsearch(){
+elasticsearch(){
 
 	DOCKERCOMPOSEFILE=$ROOTDIR/apps/elasticsearch/docker-compose.yml
 
@@ -207,12 +207,12 @@ function elasticsearch(){
 	docker-compose -f $DOCKERCOMPOSEFILE up -d
 }
 
-function del_elasticsearch(){
+del_elasticsearch(){
 	DOCKERCOMPOSEFILE="$ROOTDIR/apps/elasticsearch/docker-compose.yml"
 	docker-compose -f $DOCKERCOMPOSEFILE down
 }
 
-function setPermission(){
+setPermission(){
 	
 	# $1 = container_name
 	# path="/usr/share/nginx/html"
