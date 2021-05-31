@@ -178,9 +178,13 @@ elasticsearch(){
 
 	DOCKERCOMPOSEFILE=$ROOTDIR/apps/elasticsearch/docker-compose.yml
 
-	if [ ! -d $ElasticDATA ];then
-	        mkdir $ElasticDATA/{data,logs} -p
-	fi
+        if [ ! -d $ElasticDATA ];then
+                mkdir $ElasticDATA -p
+        fi
+
+        if [ ! -d $ElasticLOGS ];then
+                mkdir $ElasticLOGS -p
+        fi
 
 
         if [ -f $DOCKERCOMPOSEFILE ];then
