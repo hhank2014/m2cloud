@@ -3,7 +3,7 @@
 . `pwd`/env
 
 ROOTDIR=`pwd`
-
+User="polkitd"
 help(){
 
     cat <<- EOF
@@ -47,6 +47,7 @@ prenv(){
         systemctl start docker
         systemctl enable docker
 
+	useradd $User -s /sbin/nologin
 
         #sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         sudo  cp ./bin/docker-compose /usr/local/bin/docker-compose
@@ -67,7 +68,9 @@ mysql(){
 
 	if [ ! -d $MYSQLDATADIR ];then
 		mkdir $MYSQLDATADIR -p
+		chown $User $MYSQLDATADIR
 	fi
+
 
 	if [ -f $DOCKERCOMPOSEFILE ];then
 		rm -f $DOCKERCOMPOSEFILE
@@ -104,10 +107,12 @@ magento2(){
 
 	if [ ! -d $WWWDATA ];then
 	        mkdir $WWWDATA -p
+		chown $User $WWWDATA
 	fi
 
 	if [ ! -d $WWWLOGS ];then
 	        mkdir $WWWLOGS -p
+		chown $User $WWWLOGS
 	fi
 
 	if [ -f $DOCKERCOMPOSEFILE ];then
@@ -142,9 +147,11 @@ redis(){
 
         if [ ! -d $REDISDATA ];then
                 mkdir $REDISDATA -p
+		chown $User $REDISDATA
         fi
         if [ ! -d $REDISLOGS ];then
                 mkdir $REDISLOGS -p
+		chown $User $REDISLOGS
         fi
 
         if [ -f $DOCKERCOMPOSEFILE ];then
@@ -180,10 +187,12 @@ elasticsearch(){
 
         if [ ! -d $ElasticDATA ];then
                 mkdir $ElasticDATA -p
+		chown $User $ElasticDATA
         fi
 
         if [ ! -d $ElasticLOGS ];then
                 mkdir $ElasticLOGS -p
+		chown $User $ElasticLOGS
         fi
 
 
