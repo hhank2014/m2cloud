@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  magento2:
+    image: star7th/showdoc
+    container_name: showdoc
+    volumes:
+      - www:/var/www/html/
+      - ./ssl/hhank.com.key:/opt/docker/etc/nginx/ssl/server.key
+      - ./ssl/hhank.com.crt:/opt/docker/etc/nginx/ssl/server.crt
+    ports:
+     - "80:80"
+     - "443:443"
+    network_mode: bridge
+
+
+volumes:
+  www:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/docker/showdoc
