@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+pwd="/data/project/m2cloud/apps"
+
+if [ "$1" == "all" ];then
+	docker start `docker ps -q` 
+	docker ps
+else
+	docker-compose -f $pwd/$1/docker-compose.yml start
+	docker-compose -f $pwd/$1/docker-compose.yml ps
+fi

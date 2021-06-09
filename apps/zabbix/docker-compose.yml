@@ -1,0 +1,58 @@
+version: '3.9'
+services:
+
+  mysql-server:
+    image: mysql:5.7.34
+    container_name: zabbix-mysql
+    command: --character-set-server=utf8  --collation-server=utf8_bin
+    #restart: always 
+    environment:
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix123a@
+      - MYSQL_ROOT_PASSWORD=zabbix123a@
+    ports:
+      - 3306:3306
+    volumes:
+      - data:/var/lib/mysql
+      - ./mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+    network_mode: bridge
+
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:ubuntu-5.4-latest
+    container_name: zabbix-server
+    #restart: always
+    environment:
+      - DB_SERVER_HOST=mysql-server
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix123a@
+    links:
+      - mysql-server:mysql-server
+    ports:
+      - 10051:10051
+    network_mode: bridge
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-mysql:5.4-ubuntu-latest
+    container_name: zabbix-web
+    #restart: always
+    environment:
+      - DB_SERVER_HOST=mysql-server
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix123a@
+    links:
+      - mysql-server:mysql-server
+      - zabbix-server:zabbix-server
+    ports:
+      - 8008:8080
+    network_mode: bridge
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/zabbix/mysql
