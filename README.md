@@ -9,7 +9,7 @@ Installation Guide:
 
 Custom parameter configuration:
 
-        config.txt
+        env
 
         key1=value1
         ...........
