@@ -1,8 +1,4 @@
 #!/usr/bin/bash
-pwd="/data/project/m2cloud/apps"
 
-if [ "$1" == "all" ];then
-	docker ps
-else
-	docker-compose -f $pwd/$1/docker-compose.yml $2
-fi
+
+docker exec -it $*

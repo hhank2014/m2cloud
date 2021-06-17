@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   magento2:
-    image: hhank/m2:latest
+    image: hhank/m2:v1.2.2
     container_name: m2_web
     volumes:
       - www:/app

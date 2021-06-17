@@ -24,6 +24,7 @@ RUN mkdir -p /run/php-fpm && \
     chown nginx:nginx /run/php-fpm && \
     chown nginx.nginx /var/lib/php/session
 
+WORKDIR /app
 
 RUN yum -y install supervisor
 
