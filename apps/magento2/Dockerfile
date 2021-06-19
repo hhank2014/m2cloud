@@ -19,6 +19,10 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     mv composer.phar /usr/local/sbin/composer && \
     composer --version
 
+RUN curl -fsSL https://rpm.nodesource.com/setup_14.x | bash - && \
+    yum install -y nodejs && \
+    npm install -g grunt-cli
+
 RUN mkdir -p /run/php-fpm && \
     mkdir -p /var/lib/php/session && \
     chown nginx:nginx /run/php-fpm && \

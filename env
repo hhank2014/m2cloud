@@ -14,7 +14,7 @@ MYSQLDATADIR="/data/mysql_data"
 #Magento2 web 
 WWWDATA="/data/www_data"
 WWWLOGS="/data/www_logs"
-MAGENTO2IMAGES="hhank/m2:v1.2.2"
+MAGENTO2IMAGES="hhank/m2:latest"
 MagentoContainerName="m2_web"
 
 REDISIMAGES="redis:6"
