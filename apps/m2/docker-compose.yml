@@ -3,7 +3,7 @@ version: '3.9'
 services:
   magento2:
     image: hhank/m2:v1.2.4
-    container_name: m2_web
+    container_name: m2_web_new
     volumes:
       - www:/app
       - logs:/var/log/nginx
@@ -26,10 +26,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /data/www_data
+      device: /data/m2/www
   logs:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /data/www_logs
+      device: /data/m2/logs
