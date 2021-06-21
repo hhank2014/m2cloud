@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 v2.2
 
-=======
->>>>>>> master
 Installation Guide:
 
         OS: CentOS 7
