@@ -1,5 +1,3 @@
-v2.1
-
 Installation Guide:
 
         OS: CentOS 7
