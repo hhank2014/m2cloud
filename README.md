@@ -25,10 +25,14 @@ install:
 
         sh deplopy [mysql|magento2|all]
         
-uninstall:
+del docker instance:
 
         sh deploy [del_mysql|del_magento2|del_all]
         
 set Permission:
 
         sh deploy setPermission
+
+start|stop instances:
+
+        bin/start [mysql|magento2|all]
