@@ -1,0 +1,6 @@
+*/1 * * * * echo `date` >> /tmp/date.log
+#~ MAGENTO START f53b52ad6d21cceb72dfa78fb67614fe14f110c58e68412b01508d6a485501c3
+* * * * * /usr/bin/php /app/bin/magento cron:run 2>&1 | grep -v "Ran jobs by schedule" >> /app/var/log/magento.cron.log
+#~ MAGENTO END f53b52ad6d21cceb72dfa78fb67614fe14f110c58e68412b01508d6a485501c3
+
+*/1 * * * * echo `date` >> /tmp/date.log

@@ -2,23 +2,23 @@ version: '3.9'
 
 services:
   magento2:
-    image: hhank/m2:v1.2.4
+    image: hhank/m2:v1.2.6
     container_name: m2_web
     volumes:
       - www:/app
       - logs:/var/log/nginx
+      - ./cron:/var/spool/cron
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./php/php.ini:/etc/php.ini
       - ./php/php-fpm.conf:/etc/php-fpm.conf
       - ./php/www.conf:/etc/php-fpm.d/www.conf
-      - ./cron:/var/spool/cron/root
+      - ./php/10-opcache.ini:/etc/php.d/10-opcache.ini
 
     ports:
      - "80:80"
      - "443:443"
     network_mode: bridge
-
 
 volumes:
   www:
