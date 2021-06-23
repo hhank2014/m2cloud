@@ -35,4 +35,4 @@ set Permission:
 
 start|stop instances:
 
-        bin/start [mysql|magento2|all]
+        bin/stop|start|restart [mysql|magento2|all]
