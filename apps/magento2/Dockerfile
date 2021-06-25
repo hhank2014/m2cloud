@@ -4,9 +4,8 @@ RUN yum update -y
 
 RUN yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
     yum -y install http://nginx.org/packages/mainline/centos/7/x86_64/RPMS/nginx-1.19.9-1.el7.ngx.x86_64.rpm && \
-    yum install epel-release yum-utils -y && \
-    yum-config-manager --enable remi-php74 && \
-    yum update -y
+    yum install epel-release yum-utils git -y && \
+    yum-config-manager --enable remi-php74
 
 RUN yum -y install nginx && \
     yum -y install crontabs vim zlib-devel pcre-devel libjpeg-turbo-devel libpng-devel freetype-devel libxml2-devel glibc-devel glib2-devel bzip2-devel ncurses-devel libcurl-devel e2fsprogs-devel krb5-devel openssl-devel  libzip-devel  libxslt-devel && \
