@@ -1,9 +1,15 @@
 FROM centos:7
 
+RUN cd /etc/yum.repos.d/ && \
+    mkdir backup && \
+    mv CentOS-* backup
+
+COPY CentOS-Base.repo /etc/yum.repos.d/
+
 RUN yum update -y 
 
 RUN yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
-    yum -y install http://nginx.org/packages/mainline/centos/7/x86_64/RPMS/nginx-1.19.9-1.el7.ngx.x86_64.rpm && \
+    yum -y install https://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.20.0-1.el7.ngx.x86_64.rpm && \
     yum install epel-release yum-utils git -y && \
     yum-config-manager --enable remi-php74
 

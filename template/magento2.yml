@@ -4,6 +4,8 @@ services:
   magento2:
     image: MAGENTO2IMAGES
     container_name: MagentoContainerName
+    environment:
+      - TZ=Asia/Shanghai
     volumes:
       - www:/app
       - logs:/var/log/nginx
