@@ -1,11 +1,5 @@
 FROM centos:7
 
-RUN cd /etc/yum.repos.d/ && \
-    mkdir backup && \
-    mv CentOS-* backup
-
-COPY CentOS-Base.repo /etc/yum.repos.d/
-
 RUN yum update -y 
 
 RUN yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
