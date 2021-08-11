@@ -14,7 +14,6 @@ services:
       - 3306:3306
     volumes:
       - data:/var/lib/mysql
-      - logs:/var/log/mysql
       - ./mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
     network_mode: bridge
 
@@ -25,10 +24,3 @@ volumes:
       type: none
       o: bind
       device: /data/mysql_data
-
-  logs:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /data/mysql_logs
